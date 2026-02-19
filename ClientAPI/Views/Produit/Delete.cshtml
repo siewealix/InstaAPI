@@ -1,0 +1,29 @@
+﻿@model ClientAPI.Models.ProduitDTO
+
+@{
+    ViewData["Title"] = "Supprimer un produit";
+}
+
+<div class="container mt-5">
+    <div class="card shadow-sm">
+        <div class="card-header bg-danger text-white">
+            <h4 class="mb-0">Confirmation de suppression</h4>
+        </div>
+
+        <div class="card-body">
+            <p>Voulez-vous vraiment supprimer ce produit ?</p>
+
+            <ul>
+                <li><strong>Nom :</strong> @Model.Nom</li>
+                <li><strong>Prix :</strong> @Model.Prix</li>
+                <li><strong>Stock :</strong> @Model.Stock</li>
+            </ul>
+
+            <form asp-action="DeleteConfirmed" method="post">
+                <input type="hidden" name="id" value="@Model.Id" />
+                <button type="submit" class="btn btn-danger">Oui, supprimer</button>
+                <a asp-action="Index" class="btn btn-secondary">Annuler</a>
+            </form>
+        </div>
+    </div>
+</div>

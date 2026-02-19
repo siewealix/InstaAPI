@@ -1,0 +1,47 @@
+﻿@model ClientAPI.Models.ProduitDTO
+
+@{
+    ViewData["Title"] = "Détails du produit";
+}
+
+<div class="container mt-5">
+    <h2 class="mb-4">Détails du produit</h2>
+
+    <div class="card p-4 shadow-sm">
+
+        <p><strong>Nom :</strong> @Model.Nom</p>
+        <p><strong>Prix :</strong> @Model.Prix €</p>
+        <p><strong>Stock :</strong> @Model.Stock</p>
+
+        @if (TempData["Erreur"] != null)
+        {
+            <p class="text-danger">@TempData["Erreur"]</p>
+        }
+
+        <hr />
+
+        <h5>Gestion du stock</h5>
+
+        <form asp-action="AjouterStock" method="post" class="mb-3">
+            <input type="hidden" name="id" value="@Model.Id" />
+            <div class="input-group">
+                <input type="number" name="quantite" class="form-control" placeholder="Quantité à ajouter" />
+                <button class="btn btn-success">Ajouter</button>
+            </div>
+        </form>
+
+        <form asp-action="RetirerStock" method="post" class="mb-3">
+            <input type="hidden" name="id" value="@Model.Id" />
+            <div class="input-group">
+                <input type="number" name="quantite" class="form-control" placeholder="Quantité à retirer" />
+                <button class="btn btn-warning">Retirer</button>
+            </div>
+        </form>
+
+        <hr />
+
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary mb-2 w-100">Modifier</a>
+        <a asp-action="Index" class="btn btn-secondary w-100">Retour à la liste</a>
+
+    </div>
+</div>
