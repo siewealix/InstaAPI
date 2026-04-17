@@ -90,6 +90,27 @@ namespace ClientAPI.Controllers // Déclaration de l'espace de noms du module.
             return RedirectToAction(nameof(Index)); // Retour de la valeur calculée.
         } // Délimiteur de bloc de code.
 
+        [HttpPost] // Attribut de configuration/annotation appliqué.
+        public async Task<IActionResult> AjouterStock(int id, int quantite) // Déclaration d'un membre (propriété, méthode ou champ).
+        { // Délimiteur de bloc de code.
+            var resultat = await _apiclient.AjouterStockAsync(id, quantite); // Déclaration et/ou initialisation de variable locale.
+            if (!resultat.Success) // Condition pour contrôler le flux d'exécution.
+            { // Délimiteur de bloc de code.
+                TempData["Erreur"] = "Impossible d'ajouter le stock. Vérifie la quantité."; // Instruction métier conservée telle quelle.
+            } // Délimiteur de bloc de code.
+            return RedirectToAction(nameof(Details), new { id }); // Retour de la valeur calculée.
+        } // Délimiteur de bloc de code.
+
+        [HttpPost] // Attribut de configuration/annotation appliqué.
+        public async Task<IActionResult> RetirerStock(int id, int quantite) // Déclaration d'un membre (propriété, méthode ou champ).
+        { // Délimiteur de bloc de code.
+            var resultat = await _apiclient.RetirerStockAsync(id, quantite); // Déclaration et/ou initialisation de variable locale.
+            if (!resultat.Success) // Condition pour contrôler le flux d'exécution.
+            { // Délimiteur de bloc de code.
+                TempData["Erreur"] = "Impossible de retirer le stock. Vérifie la quantité et le stock disponible."; // Instruction métier conservée telle quelle.
+            } // Délimiteur de bloc de code.
+            return RedirectToAction(nameof(Details), new { id }); // Retour de la valeur calculée.
+        } // Délimiteur de bloc de code.
+
     } // Délimiteur de bloc de code.
 } // Délimiteur de bloc de code.
-
