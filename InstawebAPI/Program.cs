@@ -1,5 +1,7 @@
-﻿using InstawebAPI.Data;
+using InstawebAPI.Data;
+using InstawebAPI.Security;
 using InstawebAPI.Services;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 using WebMVC.Services;
 
@@ -15,7 +17,14 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Ajouter le service EF (Entity Framework)
-builder.Services.AddDbContext<MydbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Mycn")));
+builder.Services.AddDbContext<MydbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Mycn")));
+
+// Authentification simple par rôle via en-tête HTTP X-Role (ex: Admin)
+builder.Services.AddAuthentication("SimpleScheme")
+    .AddScheme<AuthenticationSchemeOptions, SimpleRoleAuthenticationHandler>("SimpleScheme", _ => { });
+
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
@@ -28,6 +37,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

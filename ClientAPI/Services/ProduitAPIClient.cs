@@ -1,5 +1,6 @@
-﻿using ClientAPI.Models;
+using ClientAPI.Models;
 using System.Net;
+using System.Net.Http.Json;
 
 namespace ClientAPI.Services
 {
@@ -12,41 +13,42 @@ namespace ClientAPI.Services
             _httpClient = httpClient;
         }
 
-        /***************************************/
+        private HttpRequestMessage CreateAdminRequest(HttpMethod method, string url)
+        {
+            var request = new HttpRequestMessage(method, url);
+            request.Headers.Add("X-Role", "Admin");
+            return request;
+        }
+
         public async Task<IEnumerable<ProduitDTO>?> GetAllAsync()
         {
-            //Envoie une requete GET vers l'URL indiquée.
-            //Désérialise la réponse JSON en objets C# du type demandé
             return await _httpClient.GetFromJsonAsync<IEnumerable<ProduitDTO>>("api/produit");
         }
+
         public async Task<bool> CreateAsync(ProduitDTO dto)
         {
+            var request = CreateAdminRequest(HttpMethod.Post, "api/produit");
+            request.Content = JsonContent.Create(dto);
 
-            //le JWT dans
-            //AddJwt();
-            var response = await _httpClient.PostAsJsonAsync("api/produit", dto);
+            var response = await _httpClient.SendAsync(request);
             return response.IsSuccessStatusCode;
-
         }
 
         public async Task<ProduitDTO?> GetByIdAsync(int id)
         {
-            //Envoie une requête HTTP GET vers l’endpoint api/produit/{ id}.
             var response = await _httpClient.GetAsync($"api/produit/{id}");
 
             if (response.StatusCode == HttpStatusCode.NotFound)
                 return null;
-            //Vérifie que le code HTTP est un succès(200).
+
             response.EnsureSuccessStatusCode();
-            //Lit le contenu JSON de la réponse.
-            //Désérialise automatiquement ce JSON en un objet ProduitDto.
-            //Retourne cet objet au code appelant.
             return await response.Content.ReadFromJsonAsync<ProduitDTO>();
         }
 
         public async Task<bool> DeleteAsync(int id)
         {
-            var response = await _httpClient.DeleteAsync($"api/produit/{id}");
+            var request = CreateAdminRequest(HttpMethod.Delete, $"api/produit/{id}");
+            var response = await _httpClient.SendAsync(request);
 
             if (response.StatusCode == HttpStatusCode.NotFound)
                 return false;
@@ -56,11 +58,25 @@ namespace ClientAPI.Services
 
         public async Task<bool> UpdateAsync(int id, ProduitDTO dto)
         {
-            var response = await _httpClient.PutAsJsonAsync($"api/produit/{id}", dto);
+            var request = CreateAdminRequest(HttpMethod.Put, $"api/produit/{id}");
+            request.Content = JsonContent.Create(dto);
+
+            var response = await _httpClient.SendAsync(request);
             return response.IsSuccessStatusCode;
         }
 
+        public async Task<bool> AjouterStockAsync(int id, int quantite)
+        {
+            var request = CreateAdminRequest(HttpMethod.Put, $"api/produit/{id}/ajouter-stock?quantite={quantite}");
+            var response = await _httpClient.SendAsync(request);
+            return response.IsSuccessStatusCode;
+        }
 
-
+        public async Task<bool> RetirerStockAsync(int id, int quantite)
+        {
+            var request = CreateAdminRequest(HttpMethod.Put, $"api/produit/{id}/retirer-stock?quantite={quantite}");
+            var response = await _httpClient.SendAsync(request);
+            return response.IsSuccessStatusCode;
+        }
     }
 }

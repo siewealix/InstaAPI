@@ -1,39 +1,39 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations; // Instruction métier conservée telle quelle.
 
-#nullable disable
+#nullable disable // Directive de compilation/préprocesseur.
 
-namespace InstawebAPI.Migrations
-{
+namespace InstawebAPI.Migrations // Déclaration de l'espace de noms du module.
+{ // Délimiteur de bloc de code.
     /// <inheritdoc />
-    public partial class M2 : Migration
-    {
+    public partial class M2 : Migration // Déclaration d'un membre (propriété, méthode ou champ).
+    { // Délimiteur de bloc de code.
         /// <inheritdoc />
-        protected override void Up(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.CreateTable(
-                name: "Users",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Nom = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Prenom = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Telephone = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MotDePasse = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Role = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Users", x => x.Id);
-                });
-        }
+        protected override void Up(MigrationBuilder migrationBuilder) // Déclaration d'un membre (propriété, méthode ou champ).
+        { // Délimiteur de bloc de code.
+            migrationBuilder.CreateTable( // Instruction de migration de base de données.
+                name: "Users", // Instruction métier conservée telle quelle.
+                columns: table => new // Instruction métier conservée telle quelle.
+                { // Délimiteur de bloc de code.
+                    Id = table.Column<int>(type: "int", nullable: false) // Instruction métier conservée telle quelle.
+                        .Annotation("SqlServer:Identity", "1, 1"), // Instruction métier conservée telle quelle.
+                    Nom = table.Column<string>(type: "nvarchar(max)", nullable: false), // Instruction métier conservée telle quelle.
+                    Prenom = table.Column<string>(type: "nvarchar(max)", nullable: false), // Instruction métier conservée telle quelle.
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false), // Instruction métier conservée telle quelle.
+                    Telephone = table.Column<string>(type: "nvarchar(max)", nullable: false), // Instruction métier conservée telle quelle.
+                    MotDePasse = table.Column<string>(type: "nvarchar(max)", nullable: false), // Instruction métier conservée telle quelle.
+                    Role = table.Column<string>(type: "nvarchar(max)", nullable: false) // Instruction métier conservée telle quelle.
+                }, // Instruction métier conservée telle quelle.
+                constraints: table => // Instruction métier conservée telle quelle.
+                { // Délimiteur de bloc de code.
+                    table.PrimaryKey("PK_Users", x => x.Id); // Instruction métier conservée telle quelle.
+                }); // Instruction métier conservée telle quelle.
+        } // Délimiteur de bloc de code.
 
         /// <inheritdoc />
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropTable(
-                name: "Users");
-        }
-    }
-}
+        protected override void Down(MigrationBuilder migrationBuilder) // Déclaration d'un membre (propriété, méthode ou champ).
+        { // Délimiteur de bloc de code.
+            migrationBuilder.DropTable( // Instruction de migration de base de données.
+                name: "Users"); // Instruction métier conservée telle quelle.
+        } // Délimiteur de bloc de code.
+    } // Délimiteur de bloc de code.
+} // Délimiteur de bloc de code.
