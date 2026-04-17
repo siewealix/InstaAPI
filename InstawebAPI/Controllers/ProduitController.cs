@@ -108,5 +108,39 @@ namespace InstawebAPI.Controllers // Déclaration de l'espace de noms du module.
             } // Délimiteur de bloc de code.
         } // Délimiteur de bloc de code.
 
+        [HttpPost("{id}/ajouter-stock")] // Attribut de configuration/annotation appliqué.
+        public async Task<IActionResult> AjouterStock(int id, [FromQuery] int quantite) // Déclaration d'un membre (propriété, méthode ou champ).
+        { // Délimiteur de bloc de code.
+            try // Instruction métier conservée telle quelle.
+            { // Délimiteur de bloc de code.
+                var ok = await _produitService.AjouterStock(id, quantite); // Déclaration et/ou initialisation de variable locale.
+                if (!ok) // Condition pour contrôler le flux d'exécution.
+                    return NotFound(); // Retour de la valeur calculée.
+
+                return Ok(); // Retour de la valeur calculée.
+            } // Délimiteur de bloc de code.
+            catch (Exception ex) // Instruction métier conservée telle quelle.
+            { // Délimiteur de bloc de code.
+                return BadRequest(new { message = ex.Message }); // Retour de la valeur calculée.
+            } // Délimiteur de bloc de code.
+        } // Délimiteur de bloc de code.
+
+        [HttpPost("{id}/retirer-stock")] // Attribut de configuration/annotation appliqué.
+        public async Task<IActionResult> RetirerStock(int id, [FromQuery] int quantite) // Déclaration d'un membre (propriété, méthode ou champ).
+        { // Délimiteur de bloc de code.
+            try // Instruction métier conservée telle quelle.
+            { // Délimiteur de bloc de code.
+                var ok = await _produitService.RetirerStock(id, quantite); // Déclaration et/ou initialisation de variable locale.
+                if (!ok) // Condition pour contrôler le flux d'exécution.
+                    return NotFound(); // Retour de la valeur calculée.
+
+                return Ok(); // Retour de la valeur calculée.
+            } // Délimiteur de bloc de code.
+            catch (Exception ex) // Instruction métier conservée telle quelle.
+            { // Délimiteur de bloc de code.
+                return BadRequest(new { message = ex.Message }); // Retour de la valeur calculée.
+            } // Délimiteur de bloc de code.
+        } // Délimiteur de bloc de code.
+
     } // Délimiteur de bloc de code.
 } // Délimiteur de bloc de code.

@@ -60,6 +60,26 @@ namespace ClientAPI.Services // Déclaration de l'espace de noms du module.
             return response.IsSuccessStatusCode; // Retour de la valeur calculée.
         } // Délimiteur de bloc de code.
 
+        public async Task<(bool Success, string? ErrorMessage)> AjouterStockAsync(int id, int quantite) // Déclaration d'un membre (propriété, méthode ou champ).
+        { // Délimiteur de bloc de code.
+            var response = await _httpClient.PostAsync($"api/produit/{id}/ajouter-stock?quantite={quantite}", null); // Déclaration et/ou initialisation de variable locale.
+            if (response.IsSuccessStatusCode) // Condition pour contrôler le flux d'exécution.
+                return (true, null); // Retour de la valeur calculée.
+
+            var error = await response.Content.ReadAsStringAsync(); // Déclaration et/ou initialisation de variable locale.
+            return (false, error); // Retour de la valeur calculée.
+        } // Délimiteur de bloc de code.
+
+        public async Task<(bool Success, string? ErrorMessage)> RetirerStockAsync(int id, int quantite) // Déclaration d'un membre (propriété, méthode ou champ).
+        { // Délimiteur de bloc de code.
+            var response = await _httpClient.PostAsync($"api/produit/{id}/retirer-stock?quantite={quantite}", null); // Déclaration et/ou initialisation de variable locale.
+            if (response.IsSuccessStatusCode) // Condition pour contrôler le flux d'exécution.
+                return (true, null); // Retour de la valeur calculée.
+
+            var error = await response.Content.ReadAsStringAsync(); // Déclaration et/ou initialisation de variable locale.
+            return (false, error); // Retour de la valeur calculée.
+        } // Délimiteur de bloc de code.
+
 
 
     } // Délimiteur de bloc de code.
