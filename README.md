@@ -1,6 +1,5 @@
 # InstaAPI
 
-Bienvenue 👋
 
 Ce projet est un mini système de gestion de produits, fait en **.NET** avec deux parties :
 
@@ -63,9 +62,10 @@ Base URL API (en local) : `https://localhost:7169/`
 - `PUT /api/produit/{id}` → modifier un produit
 - `DELETE /api/produit/{id}` → supprimer un produit
 
-### Stock
-- `POST /api/produit/{id}/ajouter-stock?quantite=5`
-- `POST /api/produit/{id}/retirer-stock?quantite=2`
+### Utilisateurs
+- `GET /api/user` → liste des utilisateurs
+- `POST /api/user` → créer un utilisateur client
+- `PUT /api/user/{id}` → mettre à jour un utilisateur admin
 
 ---
 
@@ -85,18 +85,6 @@ Base URL API (en local) : `https://localhost:7169/`
 5. Lancer **InstawebAPI**
 6. Lancer **ClientAPI**
 7. Ouvrir l’URL du client dans le navigateur
-
----
-
-## 6) Exemple de flux utilisateur
-
-1. Je crée un produit (nom, prix, stock)
-2. Je vais dans **Détails du produit**
-3. Je tape une quantité dans :
-   - “Quantité à ajouter” puis bouton **Ajouter**
-   - ou “Quantité à retirer” puis bouton **Retirer**
-4. Le stock est mis à jour
-5. Si la quantité est invalide (ex: négative, ou retrait > stock), un message d’erreur s’affiche
 
 ---
 
